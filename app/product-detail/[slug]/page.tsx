@@ -1,10 +1,9 @@
-import { getDetailBook, getDetailBookInfo } from "@/api/ApiBookProduct";
+import { getDetailBookAll, getDetailBookInfo } from "@/api/ApiBookInfo";
+import { getProductDetail } from "@/api/ApiBookProduct";
 import { getDataListComment } from "@/api/ApiComment";
-import { getDataUserReviewDetail } from "@/api/apiUserReview";
 import AppContainer from "@/common/AppContainer";
 import { isNullOrUndefined } from "@/extension/StringExtension";
 import ProductDetailPage from "@/feature/ProductDetail";
-
 import { Metadata } from "next";
 
 
@@ -22,7 +21,7 @@ const ProductDetail = async ({
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
   const callDataProduct = async () => {
-    const callApi = await getDetailBook(`/${params.slug}`);
+    const callApi = await getProductDetail(`/${params.slug}`);
 
     if (!isNullOrUndefined(callApi) && !isNullOrUndefined(callApi?.data)) {
       const dataApi = callApi?.data;
@@ -75,32 +74,15 @@ const ProductDetail = async ({
     }
   };
 
-  const fetchDataReview = async (idPath: number) => {
-    if (idPath) {
-      try {
-        const callapi = await getDataUserReviewDetail(`/${idPath}`);
-        if (!isNullOrUndefined(callapi) && !isNullOrUndefined(callapi?.data)) {
-          // setTotalCount(callapi.totalCount);
-          const dataApi = callapi?.data;
-          if (dataApi != null && !isNullOrUndefined(dataApi)) {
-            return dataApi;
-          }
-        } else {
-          console.log("Dữ liệu không tồn tại");
-        }
-      } catch (error) {
-        console.error("Lỗi khi gọi API:", error);
-      }
-    }
-  };
+  
 
 
   
 
   const data = await callDataProduct();
 
-  const [dataReview, dataComment, dataInfo] = await Promise.all([
-    fetchDataReview(data?.id),
+  const [ dataComment, dataInfo] = await Promise.all([
+   
     callDataComment(),
     callDataProductInfo()
   ]);
@@ -111,7 +93,7 @@ const ProductDetail = async ({
       <AppContainer>
         <ProductDetailPage
           data={data || null}
-          dataReview={dataReview || null}
+          dataReview={null}
           dataComment={dataComment || null}
           dataInfo={dataInfo || null}
         />

@@ -1,9 +1,4 @@
-import {
-  getDataDetailNew,
-  getListArticle,
-  getListArticleCategory,
-} from "@/api/apiArticle";
-import { getDataUserCommentDetail } from "@/api/apiUserComment";
+
 
 import { isNullOrUndefined } from "@/extension/StringExtension";
 import NewsDetail from "@/feature/NewsDetail";
@@ -38,37 +33,9 @@ const NewsDetailPage = async ({ params }: { params: { slug: string } }) => {
     }
   };
 
-  const fetchDataComment = async () => {
-    try {
-      const callapi = await getDataUserCommentDetail(id);
-      if (!isNullOrUndefined(callapi) && !isNullOrUndefined(callapi?.data)) {
-        const dataApi = callapi?.data;
-        if (dataApi != null && !isNullOrUndefined(dataApi)) {
-          return dataApi;
-        }
-      } else {
-        console.log("Dữ liệu không tồn tại");
-      }
-    } catch (error) {
-      console.error("Lỗi khi gọi API:", error);
-    }
-  };
+  
 
-  const callDataListCategoryAricles = async () => {
-    let callApi: any;
-    callApi = await getListArticleCategory("&Take=20");
-    if (!isNullOrUndefined(callApi) && !isNullOrUndefined(callApi?.data)) {
-      const dataApi = callApi?.data;
-      if (dataApi != null && !isNullOrUndefined(dataApi)) {
-        return dataApi;
-      } else {
-        console.log("Dữ liệu không tồn tại");
-      }
-      close();
-    } else {
-      console.log("Dữ liệu không tồn tại");
-    }
-  };
+  
 
   const callDataListNewest = async () => {
     let callApi: any;
@@ -88,7 +55,7 @@ const NewsDetailPage = async ({ params }: { params: { slug: string } }) => {
 
   const callDataListProduct = async () => {
       let callApi: any;
-      callApi = await getDataListProductBookNormal("?limit=4&offset=0");
+      callApi = await getDataListProductBookNormal("?limit=4&offset=0&active=0&trash=0");
       if (!isNullOrUndefined(callApi) && !isNullOrUndefined(callApi?.data)) {
         const dataApi = callApi?.data;
         if (dataApi != null && !isNullOrUndefined(dataApi)) {
@@ -104,11 +71,9 @@ const NewsDetailPage = async ({ params }: { params: { slug: string } }) => {
       }
     };
 
-  const [data, dataArticleCategory, dataComment, dataArticleNewest, dataProduct] =
+  const [data, dataArticleNewest, dataProduct] =
     await Promise.all([
       callDataNew(),
-      callDataListCategoryAricles(),
-      fetchDataComment(),
       callDataListNewest(),
       callDataListProduct(),
     ]);
@@ -119,8 +84,6 @@ const NewsDetailPage = async ({ params }: { params: { slug: string } }) => {
       <div className={style.contentContainer}>
         <NewsDetail
           data={data}
-          dataComment={dataComment}
-          dataArticleCategory={dataArticleCategory}
           dataArticleNewest={dataArticleNewest}
         />
       </div>

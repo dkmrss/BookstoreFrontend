@@ -26,10 +26,58 @@ export const createOrder = async (orderData: any): Promise<any> => {
  */
 export const getOrders = async (params: string): Promise<any> => {
   try {
-    const response = await apiOrigin.get(API_ROUTE.GET_LIST_ORDER + `?${params}`);
+    const response = await apiOrigin.get(API_ROUTE.GET_LIST_ORDER + params);
     return response.data;
   } catch (error: any) {
     console.error("Lỗi khi lấy danh sách đơn hàng:", error);
     throw error.response?.data || { message: "Không thể lấy danh sách đơn hàng" };
   }
 };
+
+export const getOrderDetails = async (orderId: number): Promise<any> => {
+  try {
+    const response = await apiOrigin.get(`${API_ROUTE.GET_ORDER_DETAILS}/${orderId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching order details:", error);
+    return null;
+  }
+};
+
+export const deleteOrder = async (orderId: number): Promise<any> => {
+  try {
+    const response = await apiOrigin.delete(
+      `${API_ROUTE.DELETE_ORDER}/${orderId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting order:", error);
+    throw error;
+  }
+};
+
+ export const updateOrderStatus = async (id: number, data: any): Promise<any> => {
+    try {
+      const response = await apiOrigin.put(
+        `${API_ROUTE.UPDATE_ORDER}/${id}`,
+        data
+        
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error updating news:", error);
+    }
+  };
+
+  export const cancelOrder = async (id: number, data: any): Promise<any> => {
+    try {
+      const response = await apiOrigin.put(
+        `${API_ROUTE.CANCEL_ORDER}/${id}`,
+        data
+        
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error updating news:", error);
+    }
+  };

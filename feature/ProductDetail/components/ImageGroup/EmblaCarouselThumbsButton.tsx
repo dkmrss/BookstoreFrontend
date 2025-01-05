@@ -1,4 +1,4 @@
-import { TblItemImageCommand } from "@/model/ProductList";
+
 import { Image } from "@mantine/core";
 import { useViewportSize } from "@mantine/hooks";
 import React from "react";
@@ -25,7 +25,7 @@ export const Thumb: React.FC<PropType> = (props) => {
       >
         <Image
           className={style.embla__slide__img}
-          src={`http://localhost:3001/${item?.book_images}`}
+          src={`${process.env.NEXT_PUBLIC_URL || "http://localhost:3001"}/${item?.book_images}`}
           alt=""
         />
       </div>
