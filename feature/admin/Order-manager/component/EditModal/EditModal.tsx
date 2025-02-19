@@ -140,9 +140,9 @@ const EditOrderModal: React.FC<EditOrderModalProps> = ({
         </Row>
         <Row gutter={16}>
           <Col span={12}>
-          <Form.Item label="Địa chỉ giao" name="address">
-          <Input disabled />
-        </Form.Item>
+            <Form.Item label="Địa chỉ giao" name="address">
+              <Input disabled />
+            </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item label="Số điện thoại" name="phone">
@@ -150,16 +150,18 @@ const EditOrderModal: React.FC<EditOrderModalProps> = ({
             </Form.Item>
           </Col>
         </Row>
-        
+
         <Form.Item label="Ghi chú" name="note">
           <Textarea disabled />
         </Form.Item>
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item label="Trạng thái thanh toán" name="payment">
-              <Select disabled>
+              <Select>
                 <Select.Option value={0}>Chưa thanh toán</Select.Option>
                 <Select.Option value={1}>Đã thanh toán</Select.Option>
+                <Select.Option value={2}>Thanh toán thất bại</Select.Option>
+                <Select.Option value={3}>Đã hoàn tiền</Select.Option>
               </Select>
             </Form.Item>
           </Col>

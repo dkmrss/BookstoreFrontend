@@ -163,6 +163,45 @@ const OrderTable: React.FC = () => {
       },
     },
     {
+      title: "Phương thức thanh toán",
+      dataIndex: "method",
+      key: "method",
+      render: (method: number, record: any) => {
+        const statusMap: { [key: number]: string } = {
+          0: "COD",
+          1: "Chuyển khoản",
+        };
+        const colorMap: { [key: number]: string } = {
+          0: "blue",
+          1: "green",
+        };
+    
+        const paymentStatus: { [key: number]: string } = {
+          0: "Chưa thanh toán",
+          1: "Đã thanh toán",
+          2: "Thanh toán thất bại",
+          3: "Đã hoàn tiền",
+        };
+        const paymentColor: { [key: number]: string } = {
+          0: "default",
+          1: "success",
+          2: "error",
+          3: "warning",
+        };
+    
+        return (
+          <>
+            <Tag color={colorMap[method]}>{statusMap[method]}</Tag>
+            {method === 1 && record.payment !== undefined && (
+              <Tag color={paymentColor[record.payment]}>
+                {paymentStatus[record.payment] ?? "Không xác định"}
+              </Tag>
+            )}
+          </>
+        );
+      },
+    },
+    {
       title: "Thao tác",
       key: "actions",
       render: (_: any, record: Order) => (
@@ -229,6 +268,8 @@ const OrderTable: React.FC = () => {
           >
             <Select.Option value="0">Chưa thanh toán</Select.Option>
             <Select.Option value="1">Đã thanh toán</Select.Option>
+            <Select.Option value="2">Thanh toán thất bại</Select.Option>
+            <Select.Option value="3">Đã hoàn tiền</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item className={style.formItem}>

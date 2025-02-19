@@ -94,6 +94,7 @@ export const API_ROUTE = {
   DELETE_ORDER:"/orders/delete",
   UPDATE_ORDER:"/orders/update",
   CANCEL_ORDER:"/orders/cancel",
+  UPDATE_PAYMENT:"/orders/update-payment",
   //KeySearch
   GET_KEY_SEARCH:"/search/keywords",
   DELETE_KEYWORD:"/search/keywords",

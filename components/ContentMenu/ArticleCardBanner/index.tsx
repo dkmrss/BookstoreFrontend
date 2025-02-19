@@ -15,14 +15,14 @@ interface ArticleCardBannerProps {
 const ArticleCardBanner: React.FC<ArticleCardBannerProps> = ({ dataNews }) => {
   return (
     <div className={styles.container}>
-      {dataNews.slice(0, 2).map((article) => (
+      {dataNews?.slice(0, 2).map((article) => (
         <Link href={`/news/${article?.id}`}
           key={article.id}
           className={styles.card}
           style={{
             backgroundImage: `url(${
               process.env.NEXT_PUBLIC_URL || "http://localhost:3001"
-            }/${article.avatar})`,
+            }/${article.avatar.replace(/\\/g, "/")})`,
           }}
         >
           {/* Overlay */}

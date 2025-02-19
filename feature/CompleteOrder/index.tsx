@@ -23,7 +23,6 @@ import TransferForm from "./TransferForm";
 
 const CompleteOrder = () => {
   const saleOrder = useSelector((state: any) => state.saleOrder);
-  const dataOrder = useSelector((state: any) => state.completeOrder?.data);
   const order = useSelector((state: any) => state.order.order);
   console.log(order)
   const router = useRouter();
@@ -33,17 +32,15 @@ const CompleteOrder = () => {
   const currentTime = moment().format("DD/MM/YYYY");
 
   const handleCreateQrCode = async () => {
-    console.log("start")
     try {
     const response  = await createQrCode({
       amount: order?.total,
-      accountNo: 933324082001,
+      accountNo: 4505116887,
       accountName:"BUI THE ANH",
-      acqId: 970422,
+      acqId: 970418,
       format: "text",
-      template: "compact2"
+      template: "wkN8cwa"
     });
-    console.log(response)
     if (response?.code === "00") {
       
       setValueQrCode(response.data.qrDataURL); // Lưu URL mã QR base64
@@ -59,7 +56,6 @@ const CompleteOrder = () => {
   }
   };
 
- console.log(valueQrCode)
 
   useEffect(() => {
     if (order.method === 1) {
@@ -219,6 +215,7 @@ const CompleteOrder = () => {
                   <Space h={"10px"} />
                   {order?.method === 1 ? (
                     <TransferForm
+                    id={order.id}
                     handleCreateQrCode={handleCreateQrCode}
                       valueQr={valueQrCode}
                       showLoading={isRender}  

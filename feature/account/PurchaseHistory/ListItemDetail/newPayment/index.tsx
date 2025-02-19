@@ -13,12 +13,18 @@ interface FormPaymentProps {
  id: number;
   handleCreateQrCode: any;
   showLoading: boolean;
+  isOpen: boolean;
+  onClose: () => void;
+  fetchOrderDetail: ()=> void
 }
-const TransferForm = ({
+const QrForm = ({
   valueQr,
   id,
   handleCreateQrCode,
   showLoading,
+  isOpen,
+  onClose,
+  fetchOrderDetail,
 }: FormPaymentProps) => {
   // const [showLoading, setShowLoading] = useState(true);
   const [showQR, setShowQR] = useState(false);
@@ -32,7 +38,8 @@ const router = useRouter();
 
       if (response.success) {
         message.success("Đặt hàng hoàn tất.");
-        router.push("/");
+        onClose()
+        fetchOrderDetail()
       } else {
         message.error(response.message || "thanh toán thất bại.");
       }
@@ -143,4 +150,4 @@ const router = useRouter();
   );
 };
 
-export default TransferForm;
+export default QrForm;

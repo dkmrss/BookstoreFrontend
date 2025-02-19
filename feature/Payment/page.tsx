@@ -100,7 +100,7 @@ const Payment = () => {
       address: customerInfo.address,
       total: cartItems.reduce((acc: number, item: any) => acc + item.total_price, 0),
       method: selectedMethod === "0" ? 0 : 1,
-      payment: selectedMethod === "0" ? 0 : 1,
+      payment: 0,
       note: customerInfo.note,
       orderDetails,
     };

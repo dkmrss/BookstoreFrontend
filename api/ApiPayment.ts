@@ -81,3 +81,15 @@ export const deleteOrder = async (orderId: number): Promise<any> => {
       console.error("Error updating news:", error);
     }
   };
+
+  export const updatePaymentStatus = async (id: number, data: any): Promise<any> => {
+    try {
+      const response = await apiOrigin.put(
+        `${API_ROUTE.UPDATE_PAYMENT}/${id}`,
+        data   
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error updating news:", error);
+    }
+  };
